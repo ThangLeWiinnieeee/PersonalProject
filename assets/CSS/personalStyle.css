@@ -1,0 +1,115 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#wrapper {
+    height: 1500px;
+}
+
+#wrapper .header {
+    height: 100px;
+    position: fixed;
+    width: 100%;
+    padding: 15px;
+    background-color: antiquewhite;
+    display: flex;
+    gap: 120px;
+    text-align: center;
+    align-items: center;
+    font-size: 22px;
+}
+
+#wrapper .logo_school {
+    width: 60px;
+    
+}
+
+#wrapper .list-header {
+    list-style: none;
+    display: flex;
+    gap: 40px; /*khoang cach*/
+}
+
+#wrapper .list-header a {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    padding: 20px 30px;
+}
+
+#wrapper .list-header a:hover {
+    
+}
+
+#wrapper .content {
+    padding: 100px 0 0 0;
+    
+}
+
+#wrapper .content .introduce {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#wrapper .introduce .myself {
+    max-width: 40%;
+}
+
+#wrapper .introduce h1 {
+    font-size: 70px;
+}
+
+#wrapper .introduce p {
+    font-size: 30px;
+}
+
+#wrapper .content img {
+    width: 20%;
+    padding-top: 50px;
+}
+
+/* about me */
+#about {
+    background-color: antiquewhite;
+    height: 300px;
+    margin-top: 50px;
+}
+
+#about h1 {
+    text-align: center;
+    text-decoration: none;
+    font-size: 50px;
+    padding: 20px 0;
+}
+
+
+/* My project */
+#project {
+    height: 400px;
+    margin-top: 20px;
+}
+
+#project h1 {
+    text-align: center;
+    font-size: 50px;
+    padding: 20px 0;
+}
+
+#project .container-project {
+    display: flex;
+    justify-content: space-around;
+}
+
+#project .container-project .wrapper-project {
+    width: 150px;
+    height: 250px;
+}
+
+#project .container-project a {
+    text-decoration: none;
+    font-size: 30px;
+    cursor: pointer;
+}
