@@ -1,63 +1,69 @@
-// Add animation attributes only when AOS is available.
+// Content is visible by default when the animation CDN is unavailable.
 (() => {
-  if (!window.AOS) return;
-  const targets = document.querySelectorAll(
-    ".hero-copy > *, .portrait, #overview .section-head, #overview .card, #projects .section-head, " +
-    ".project-card, #experience .section-head, #experience .timeline > .card, " +
-    "#skills .section-head, #skills .card, .strengths, .contact-card, .contact-form"
-  );
-  targets.forEach(element => element.setAttribute("data-aos", "fade-up"));
-  document.querySelectorAll(".hero-copy > *").forEach((element, index) => {
-    element.setAttribute("data-aos-delay", String(Math.min(index * 100, 500)));
-  });
-  document.querySelector(".portrait").setAttribute("data-aos-delay", "200");
-  const mobile = matchMedia("(max-width: 640px)");
-  function setCardDelays() {
-    document.querySelectorAll(".overview-grid, .projects-grid, .skills-grid, .timeline").forEach(group => {
-      [...group.children].forEach((card, index) => {
-        card.setAttribute("data-aos-delay", String(mobile.matches ? 0 : (index % 2) * 150));
+  const { gsap, ScrollTrigger } = window;
+  if (!gsap || !ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+  const media = gsap.matchMedia();
+  media.add({
+    motion: "(prefers-reduced-motion: no-preference)",
+    mobile: "(max-width: 640px)"
+  }, context => {
+    if (!context.conditions.motion) return;
+    const targets = gsap.utils.toArray(
+      ".hero-copy > *, .portrait, #overview .section-head, #overview .card, " +
+      "#projects .section-head, .project-card, #experience .section-head, " +
+      "#experience .timeline > .card, #skills .section-head, #skills .card, " +
+      ".strengths, .contact-layout > div > p, .contact-layout > div > h2, .contact-card, .contact-form"
+    );
+    const triggers = [];
+    targets.forEach(element => {
+      const siblings = [...element.parentElement.children];
+      let delay = 0;
+      if (element.parentElement.matches(".hero-copy")) delay = Math.min(siblings.indexOf(element) * 0.1, 0.5);
+      else if (element.matches(".portrait")) delay = 0.2;
+      else if (element.matches(".contact-layout > div > p, .contact-layout > div > h2"))
+        delay = siblings.indexOf(element) * 0.1;
+      else if (!context.conditions.mobile && element.parentElement.matches(".overview-grid, .projects-grid, .skills-grid"))
+        delay = (siblings.indexOf(element) % 2) * 0.15;
+      let animated = false;
+      const reveal = () => {
+        if (element.matches(".contact-form") && animated) return;
+        animated = true;
+        gsap.killTweensOf(element);
+        gsap.fromTo(element, {
+          opacity: 0,
+          y: context.conditions.mobile ? 20 : 40
+        }, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          delay,
+          ease: "power2.out",
+          clearProps: "opacity,transform"
+        });
+      };
+      triggers.push(ScrollTrigger.create({
+        trigger: element,
+        start: "top bottom",
+        end: "bottom top",
+        onEnter: reveal,
+        onEnterBack: reveal,
+        invalidateOnRefresh: true
+      }));
+    });
+    return () => {
+      triggers.forEach(trigger => trigger.kill());
+      targets.forEach(element => {
+        gsap.killTweensOf(element);
+        gsap.set(element, { clearProps: "opacity,transform" });
       });
-    });
-  }
-  setCardDelays();
-  // A form is revealed once so scrolling never interrupts typing.
-  document.querySelector(".contact-form").setAttribute("data-aos-once", "true");
-  document.querySelector(".contact-form").setAttribute("data-aos-mirror", "false");
-
-  let started = false;
-  try {
-    document.documentElement.classList.add("aos-starting");
-    AOS.init({
-      duration: 800,
-      easing: "ease-out-cubic",
-      offset: 24,
-      once: false,
-      mirror: true,
-      startEvent: "portfolio-motion-ready"
-    });
-    document.documentElement.classList.add("aos-ready");
-    // Paint the starting position before AOS reveals the initially visible elements.
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      document.dispatchEvent(new Event("portfolio-motion-ready"));
-      document.documentElement.classList.remove("aos-starting");
-      started = true;
-      AOS.refresh();
-    }));
-  } catch {
-    document.documentElement.classList.remove("aos-starting");
-    document.documentElement.classList.remove("aos-ready");
-    targets.forEach(element => element.removeAttribute("data-aos"));
-    return;
-  }
-
-  // Preserve positions after details expand, fonts load or the form resizes.
-  const refresh = () => { if (started) AOS.refresh(); };
-  mobile.addEventListener("change", () => { setCardDelays(); refresh(); });
+    };
+  });
+  const refresh = () => ScrollTrigger.refresh();
   document.querySelectorAll("details").forEach(element => element.addEventListener("toggle", refresh));
   if (document.fonts) document.fonts.ready.then(refresh);
   window.addEventListener("load", refresh, { once: true });
   window.addEventListener("pageshow", refresh);
-  matchMedia("(prefers-reduced-motion: reduce)").addEventListener("change", refresh);
   if ("ResizeObserver" in window) {
     let frame;
     const observer = new ResizeObserver(() => {
