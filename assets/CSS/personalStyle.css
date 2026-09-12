@@ -68,6 +68,8 @@ nav a:hover, nav a[aria-current] { background: var(--primary); color: var(--butt
 .button:active { transform: translateY(1px); }
 .button.primary { background: var(--primary); color: var(--button-text); border-color: var(--primary); }
 .social-actions { margin-top: 1.3rem; }
+.social-actions .button { gap: .5rem; }
+.social-actions svg { width: 1.05rem; height: 1.05rem; flex: 0 0 auto; }
 .portrait { margin: 0; padding: 8px; border: 1px solid var(--line); border-radius: 30px; background: var(--surface); box-shadow: var(--shadow); }
 .portrait img { width: 100%; height: auto; aspect-ratio: 4/5; object-fit: cover; object-position: top; border-radius: 23px; }
 .portrait figcaption { display: grid; padding: 1.2rem .7rem .7rem; gap: .2rem; }
@@ -80,14 +82,23 @@ nav a:hover, nav a[aria-current] { background: var(--primary); color: var(--butt
 .card p, .card ul { color: var(--muted); }
 .card p:last-child { margin: 0; }
 .overview-grid h3 { color: var(--primary); font-size: .95rem; }
+.overview-grid:has(> :last-child:nth-child(odd)) > .featured-overview { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(240px, .8fr) minmax(0, 1.2fr); gap: 48px; align-items: center; }
+.overview-feature-title, .overview-feature-copy { min-width: 0; }
+.overview-feature-title .eyebrow { margin-bottom: .65rem; }
+.overview-feature-title h3 { margin: 0; font-size: clamp(1.25rem, 2vw, 1.7rem); }
+.overview-feature-copy { padding-left: 48px; border-left: 1px solid var(--line); }
 .accent-card { border-color: var(--primary); }
 .project-card { position: relative; display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: var(--surface); box-shadow: var(--shadow); min-width: 0; transition: transform .2s, border-color .2s; }
 .project-card:hover, .project-card:focus-within { transform: translateY(-4px); border-color: var(--primary); }
+.projects-grid:has(> :nth-child(3):last-child) > .featured-project { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr); }
+.projects-grid:has(> :nth-child(3):last-child) > .featured-project .project-image-cover { aspect-ratio: auto; min-height: 360px; }
 .project-cover { min-height: 240px; padding: 32px; display: flex; flex-direction: column; justify-content: center; }
 .project-cover span { font-size: .75rem; margin-bottom: 1.2rem; }
 .project-cover strong { font: 600 clamp(1.65rem, 2.7vw, 2.3rem)/1.15 "Space Grotesk", sans-serif; letter-spacing: -.035em; overflow-wrap: anywhere; }
 .project-cover p { font-size: .85rem; margin: 1rem 0 0; }
 .tutor-cover { background: #dceee7; color: #174f43; }
+.project-image-cover { aspect-ratio: 16 / 9; min-height: 240px; padding: 0; overflow: hidden; }
+.project-image-cover img { width: 100%; height: 100%; object-fit: cover; object-position: center 28%; }
 .wedding-cover { background: #ece2ef; color: #593867; }
 .pharmacy-cover { background: #e8ead8; color: #455124; }
 .project-body { display: flex; flex-direction: column; flex: 1; padding: 26px; }
@@ -180,6 +191,8 @@ footer p { margin: 0; }
   .experience-layout, .contact-layout { grid-template-columns: 1fr; gap: 24px; }
   .case-hero, .case-study { grid-template-columns: 1fr; gap: 32px; }
   .case-study aside { position: static; }
+  .projects-grid:has(> :nth-child(3):last-child) > .featured-project { display: flex; grid-column: auto; }
+  .projects-grid:has(> :nth-child(3):last-child) > .featured-project .project-image-cover { aspect-ratio: 16 / 9; min-height: 240px; }
   .experience-layout > .section-head { position: static; }
 }
 @media (max-width: 640px) {
@@ -190,6 +203,8 @@ footer p { margin: 0; }
   .portrait { width: min(290px, 100%); margin-inline: auto; }
   .hero h1 { font-size: clamp(1.9rem, 8vw, 2.5rem); }
   .overview-grid, .projects-grid, .skills-grid { grid-template-columns: 1fr; }
+  .overview-grid:has(> :last-child:nth-child(odd)) > .featured-overview { display: block; grid-column: auto; }
+  .overview-feature-copy { margin-top: 1.25rem; padding: 1.25rem 0 0; border-top: 1px solid var(--line); border-left: 0; }
   .menu-toggle { display: block; margin-left: auto; }
   .js-enabled nav { display: none; }
   .js-enabled nav.open { display: flex; }
