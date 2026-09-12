@@ -10,9 +10,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="./assets/CSS/personalStyle.css">
   <script src="./assets/JS/theme.js"></script>
   <script src="./assets/JS/portfolio.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
+  <script src="./assets/JS/motion.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -45,7 +48,12 @@
           <a class="button primary" href="#projects">View featured projects</a>
           <a class="button" href="#contact">Contact me</a>
         </div>
-        <a class="social-link" href="https://github.com/ThangLeWiinnieeee" target="_blank" rel="noopener noreferrer">GitHub / ThangLeWiinnieeee ↗</a>
+        <div class="actions social-actions" role="group" aria-label="Social profiles">
+          <a class="button" href="https://github.com/ThangLeWiinnieeee" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="button" href="https://www.linkedin.com/in/ledangtoanthang2004/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="button" href="https://www.facebook.com/ledangtoanthang2004" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a class="button" href="https://zalo.me/0982340214" target="_blank" rel="noopener noreferrer">Zalo</a>
+        </div>
       </div>
       <figure class="portrait">
         <img src="./assets/IMG/Thang'sPicture.jpg" alt="Le Dang Toan Thang" width="1924" height="2560" fetchpriority="high">
@@ -144,17 +152,26 @@
     </section>
     <section class="band" id="contact">
       <div class="shell contact-layout">
-        <div><p class="eyebrow">Get in touch</p><h2>Let's build something useful together.</h2><p>Interested in backend development, Python automation or full-stack projects? I'd be happy to connect.</p></div>
+        <div><p class="eyebrow">Get in touch</p><h2>Let's build something useful together.</h2><p>Interested in backend development, Python automation or full-stack projects? I'd be happy to connect.</p>
         <address class="card contact-card">
           <span>Email</span><a href="mailto:ledangtoanthang3008@gmail.com">ledangtoanthang3008@gmail.com</a>
           <button class="copy-email" hidden>Copy email</button><p class="status" role="status"></p>
           <span>Phone</span><a href="tel:+84982340214">0982 340 214</a>
-          <span>Zalo</span><a href="https://zalo.me/0982340214" target="_blank" rel="noopener noreferrer">Chat on Zalo · 0982 340 214 ↗</a>
-          <span>LinkedIn</span><a href="https://www.linkedin.com/in/ledangtoanthang2004/" target="_blank" rel="noopener noreferrer">Le Dang Toan Thang on LinkedIn ↗</a>
-          <span>Facebook</span><a href="https://www.facebook.com/ledangtoanthang2004" target="_blank" rel="noopener noreferrer">Le Dang Toan Thang on Facebook ↗</a>
           <span>Location</span><p>Thu Duc, Ho Chi Minh City, Vietnam</p>
-          <a class="text-link" href="https://github.com/ThangLeWiinnieeee" target="_blank" rel="noopener noreferrer">GitHub / ThangLeWiinnieeee ↗</a>
         </address>
+        </div>
+        <form class="card contact-form" action="https://formsubmit.co/ledangtoanthang3008@gmail.com" method="POST">
+          <h3>Send me a message</h3>
+          <p>Leave your email and tell me what you have in mind.</p>
+          <input type="hidden" name="_subject" value="New message from portfolio">
+          <input type="hidden" name="_template" value="table">
+          <label for="contact-email">Your email</label>
+          <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" maxlength="254" required>
+          <label for="contact-message">Message</label>
+          <textarea id="contact-message" name="message" rows="6" placeholder="Tell me about your project or opportunity..." maxlength="5000" required></textarea>
+          <p class="contact-form-note" id="contact-form-note">Your email and message are processed by FormSubmit and forwarded to me. Complete the verification on the next page to submit your message.</p>
+          <button class="button primary" type="submit" aria-describedby="contact-form-note">Send message</button>
+        </form>
       </div>
     </section>
   </main>
