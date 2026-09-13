@@ -31,6 +31,7 @@
   });
   const themeButton = document.querySelector(".theme-toggle");
   if (!themeButton) return;
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   const button = document.createElement("button");
   button.type = "button";
   button.className = "language-toggle";
@@ -50,10 +51,35 @@
       window.ScrollTrigger?.refresh();
     });
   }
-  button.addEventListener("click", () => {
+  function commitLanguageChange() {
     language = language === "en" ? "vi" : "en";
     try { localStorage.setItem("portfolio-language", language); } catch {}
     applyLanguage();
+  }
+  button.addEventListener("click", async () => {
+    if (button.disabled) return;
+    const targets = [...document.querySelectorAll("#main-nav, main, .site-footer")];
+    if (reducedMotion.matches || !Element.prototype.animate || !targets.length) {
+      commitLanguageChange();
+      return;
+    }
+
+    button.disabled = true;
+    const outgoing = targets.map(element => element.animate(
+      [{ opacity: 1, transform: "translateY(0)" }, { opacity: .12, transform: "translateY(-6px)" }],
+      { duration: 140, easing: "ease-in", fill: "both" }
+    ));
+    await Promise.allSettled(outgoing.map(animation => animation.finished));
+
+    commitLanguageChange();
+    const incoming = targets.map(element => element.animate(
+      [{ opacity: .12, transform: "translateY(8px)" }, { opacity: 1, transform: "translateY(0)" }],
+      { duration: 220, easing: "cubic-bezier(.22, 1, .36, 1)", fill: "both" }
+    ));
+    outgoing.forEach(animation => animation.cancel());
+    await Promise.allSettled(incoming.map(animation => animation.finished));
+    incoming.forEach(animation => animation.cancel());
+    button.disabled = false;
   });
   applyLanguage();
 })();

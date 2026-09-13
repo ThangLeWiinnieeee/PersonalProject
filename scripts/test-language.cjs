@@ -61,6 +61,8 @@ const { spawn } = require("node:child_process");
     await command("Page.navigate", { url: base });
     await ready();
     assert.equal(await evaluate("document.documentElement.lang"), "en");
+    assert.equal(await evaluate('getComputedStyle(document.documentElement).overflowX'), "clip");
+    assert.equal(await evaluate('getComputedStyle(document.body).overflowX'), "clip");
     assert.equal(await evaluate('getComputedStyle(document.querySelector(".theme-toggle")).viewTransitionName'), "none");
     await evaluate('document.querySelector("#contact-message").value = "Keep this draft"; document.querySelector(".language-toggle").click()');
     assert.equal(await evaluate("document.documentElement.lang"), "vi");
@@ -120,6 +122,17 @@ const { spawn } = require("node:child_process");
         console.log("Screenshot: " + screenshot);
       }
     }
+    await command("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "no-preference" }] });
+    const languageBeforeMotion = await evaluate("document.documentElement.lang");
+    await evaluate('document.querySelector(".language-toggle").click()');
+    assert.equal(await evaluate('document.querySelector(".language-toggle").disabled'), true);
+    for (let n = 0; n < 20 && await evaluate('document.querySelector(".language-toggle").disabled'); n++) {
+      await new Promise(resolve => setTimeout(resolve, 50));
+    }
+    assert.notEqual(await evaluate("document.documentElement.lang"), languageBeforeMotion);
+    assert.equal(await evaluate('document.querySelector(".language-toggle").disabled'), false);
+    assert.equal(await evaluate('getComputedStyle(document.querySelector("main")).opacity'), "1");
+    assert.equal(await evaluate('getComputedStyle(document.querySelector("main")).transform'), "none");
     console.log("PASS: EN/VI, role, duration, saved language/theme, form draft, mocked success, all project pages, responsive widths.");
     console.log(JSON.stringify(report));
   } finally {
