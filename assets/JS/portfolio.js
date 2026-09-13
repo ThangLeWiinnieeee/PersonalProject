@@ -43,6 +43,54 @@ document.querySelectorAll(".contact-copy").forEach(button => button.addEventList
   }
 }));
 
+const dynamicRole = document.querySelector("#dynamic-role");
+if (dynamicRole) {
+  const roles = ["Software Engineer", "Frontend Developer", "Backend Developer", "Full-stack Developer"];
+  const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  let roleIndex = 0;
+  let characterIndex = 0;
+  let deleting = false;
+  let typingTimer;
+
+  function scheduleTyping(delay) {
+    clearTimeout(typingTimer);
+    if (!document.hidden && !reducedMotion.matches) typingTimer = setTimeout(typeRole, delay);
+  }
+
+  function typeRole() {
+    const role = roles[roleIndex];
+    characterIndex += deleting ? -1 : 1;
+    dynamicRole.textContent = role.slice(0, characterIndex);
+
+    if (!deleting && characterIndex === role.length) {
+      deleting = true;
+      scheduleTyping(1600);
+    } else if (deleting && characterIndex === 0) {
+      deleting = false;
+      roleIndex = (roleIndex + 1) % roles.length;
+      scheduleTyping(300);
+    } else scheduleTyping(deleting ? 40 : 75);
+  }
+
+  function syncTypingPreference() {
+    clearTimeout(typingTimer);
+    if (reducedMotion.matches) {
+      roleIndex = 0;
+      characterIndex = roles[0].length;
+      deleting = false;
+      dynamicRole.textContent = roles[0];
+    } else scheduleTyping(350);
+  }
+
+  dynamicRole.textContent = reducedMotion.matches ? roles[0] : "";
+  reducedMotion.addEventListener("change", syncTypingPreference);
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) clearTimeout(typingTimer);
+    else scheduleTyping(250);
+  });
+  syncTypingPreference();
+}
+
 const contactForm = document.querySelector(".contact-form");
 if (contactForm) {
   const fields = contactForm.querySelector(".contact-form-fields");
@@ -115,13 +163,30 @@ document.querySelector("#year").textContent = String(new Date().getFullYear());
 
 if ("IntersectionObserver" in window) {
   const links = [...navigation.querySelectorAll("a")];
+  const indicator = document.createElement("span");
+  indicator.className = "nav-indicator";
+  indicator.setAttribute("aria-hidden", "true");
+  navigation.prepend(indicator);
+
+  function setActiveLink(activeLink) {
+    links.forEach(link => {
+      if (link === activeLink) link.setAttribute("aria-current", "location");
+      else link.removeAttribute("aria-current");
+    });
+    indicator.style.width = `${activeLink.offsetWidth}px`;
+    indicator.style.transform = `translateX(${activeLink.offsetLeft}px)`;
+  }
+
+  setActiveLink(links[0]);
   const observer = new IntersectionObserver(entries => {
     const visible = entries.find(entry => entry.isIntersecting);
     if (!visible) return;
-    links.forEach(link => {
-      if (link.hash === "#" + visible.target.id) link.setAttribute("aria-current", "location");
-      else link.removeAttribute("aria-current");
-    });
+    const activeLink = links.find(link => link.hash === "#" + visible.target.id);
+    if (activeLink) setActiveLink(activeLink);
   }, { rootMargin: "-15% 0px -60% 0px", threshold: 0 });
   links.forEach(link => observer.observe(document.querySelector(link.hash)));
+  window.addEventListener("resize", () => {
+    const activeLink = navigation.querySelector("a[aria-current]") || links[0];
+    setActiveLink(activeLink);
+  });
 }
