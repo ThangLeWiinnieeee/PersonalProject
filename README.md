@@ -6,7 +6,7 @@ The website is built with HTML, CSS and JavaScript, with GSAP and ScrollTrigger 
 
 ---
 
-## 📸 Overview
+## Overview
 
 <p align="center">
   <a href="https://ledangtoanthang.pages.dev/">
@@ -18,7 +18,7 @@ The website is built with HTML, CSS and JavaScript, with GSAP and ScrollTrigger 
 
 ---
 
-## 📑 Table of Contents
+## Table of Contents
 
 - [Overview](#-overview)
 - [Personal Information](#personal-information)
