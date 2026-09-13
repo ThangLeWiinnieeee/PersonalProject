@@ -27,20 +27,6 @@
       }));
     }
 
-    const home = document.querySelector("#home");
-    if (home) {
-      const copy = gsap.utils.toArray(".hero-copy > *");
-      const portrait = document.querySelector(".portrait");
-      observe(home, () => gsap.timeline()
-        .fromTo(copy,
-          { opacity: .12, y: 34 },
-          { opacity: 1, y: 0, duration: 1.1, stagger: .11, ease: "expo.out", force3D: true, clearProps: "opacity,transform" })
-        .fromTo(portrait,
-          { opacity: .08, y: 30, scale: .9, rotate: 2 },
-          { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 1.25, ease: "expo.out", force3D: true, clearProps: "opacity,transform" },
-          .28), "top bottom");
-    }
-
     const overview = document.querySelector("#overview");
     const about = document.querySelector("#about");
     if (about) {
