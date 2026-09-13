@@ -33,12 +33,12 @@
       const portrait = document.querySelector(".portrait");
       observe(home, () => gsap.timeline()
         .fromTo(copy,
-          { opacity: .4, x: -28 },
-          { opacity: 1, x: 0, duration: .85, stagger: .08, ease: "power3.out", force3D: true, clearProps: "opacity,transform" })
+          { opacity: .12, y: 34 },
+          { opacity: 1, y: 0, duration: 1.1, stagger: .11, ease: "expo.out", force3D: true, clearProps: "opacity,transform" })
         .fromTo(portrait,
-          { opacity: .4, x: 28, scale: .96 },
-          { opacity: 1, x: 0, scale: 1, duration: 1.05, ease: "power3.out", force3D: true, clearProps: "opacity,transform" },
-          .16), "top bottom");
+          { opacity: .08, y: 30, scale: .9, rotate: 2 },
+          { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 1.25, ease: "expo.out", force3D: true, clearProps: "opacity,transform" },
+          .28), "top bottom");
     }
 
     const overview = document.querySelector("#overview");
