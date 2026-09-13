@@ -68,7 +68,7 @@ section { padding-block: 80px; scroll-margin-top: 88px; }
 }
 .theme-toggle, .menu-toggle, .language-toggle { min-height: 44px; padding: .52rem .82rem; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink); font-size: .84rem; font-weight: 700; }
 .language-toggle { display: inline-flex; align-items: center; gap: .4rem; flex-shrink: 0; white-space: nowrap; cursor: pointer; transition: background-color .2s, color .2s; }
-.language-toggle .fi { width: 1.25rem; border-radius: 2px; box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 14%, transparent); }
+.language-toggle .fi { flex: 0 0 auto; width: 1.333333em; border-radius: 1px; }
 .language-toggle:hover { background: var(--primary); color: var(--button-text); }
 .language-toggle:disabled { cursor: wait; }
 .header-controls { display: flex; align-items: center; justify-self: end; gap: .5rem; }
