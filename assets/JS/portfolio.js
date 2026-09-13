@@ -16,13 +16,23 @@ root.classList.add("js-enabled");
 menuButton.hidden = false;
 
 if (floatingTopLink) {
-  const home = document.querySelector("#home");
-  new IntersectionObserver(([entry]) => {
-    const visible = !entry.isIntersecting && window.scrollY > 0;
+  const about = document.querySelector("#about");
+  let topLinkFrame;
+  function syncTopLink() {
+    topLinkFrame = undefined;
+    const headerHeight = document.querySelector(".site-header")?.offsetHeight ?? 0;
+    const visible = about && window.scrollY >= about.offsetTop - headerHeight - 8;
     floatingTopLink.classList.toggle("is-visible", visible);
     floatingTopLink.setAttribute("aria-hidden", String(!visible));
     floatingTopLink.tabIndex = visible ? 0 : -1;
-  }, { threshold: 0.05 }).observe(home);
+  }
+  function scheduleTopLinkSync() {
+    if (!topLinkFrame) topLinkFrame = requestAnimationFrame(syncTopLink);
+  }
+  window.addEventListener("scroll", scheduleTopLinkSync, { passive: true });
+  window.addEventListener("resize", scheduleTopLinkSync);
+  window.addEventListener("pageshow", scheduleTopLinkSync);
+  scheduleTopLinkSync();
 }
 
 function setMenu(open) {

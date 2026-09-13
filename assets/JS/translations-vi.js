@@ -1,4 +1,5 @@
 window.portfolioVietnamese = {
+  "View details": "Xem chi tiết",
   "Le Dang Toan Thang — Full-stack developer focused on Node.js, Python and AI automation. Explore WebTutorCenter and Wedding Service Booking Platform.": "Lê Đặng Toàn Thắng — Lập trình viên Full-stack tập trung vào Node.js, Python và tự động hóa với AI. Khám phá WebTutorCenter và nền tảng đặt dịch vụ cưới.",
   "WebTutorCenter case study by Le Dang Toan Thang.": "Chi tiết dự án WebTutorCenter của Lê Đặng Toàn Thắng.",
   "Wedding Service Booking Platform case study by Le Dang Toan Thang.": "Chi tiết dự án nền tảng đặt dịch vụ cưới của Lê Đặng Toàn Thắng.",
