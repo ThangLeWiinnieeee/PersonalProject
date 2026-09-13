@@ -4,9 +4,14 @@
   "private": true,
   "scripts": {
     "build": "node scripts/build-index.js --production",
-    "build:index": "node scripts/build-index.js"
+    "build:index": "node scripts/build-index.js",
+    "readme:gif": "npm run build && node scripts/generate-readme-gif.cjs"
   },
   "dependencies": {
     "flag-icons": "^7.5.0"
+  },
+  "devDependencies": {
+    "gif-encoder-2": "^1.0.5",
+    "pngjs": "^7.0.0"
   }
 }

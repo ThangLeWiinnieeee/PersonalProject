@@ -4,8 +4,23 @@ Personal portfolio website introducing my background, technical skills, internsh
 
 The website is built with HTML, CSS and JavaScript, with GSAP and ScrollTrigger used for motion. It supports responsive layouts, light and dark themes, accessible reduced-motion behavior and a contact form.
 
-## Table of Contents
+---
 
+## 📸 Overview
+
+<p align="center">
+  <a href="https://ledangtoanthang.pages.dev/">
+    <img src="assets/README/portfolio-home.gif" alt="Le Dang Toan Thang portfolio Home preview with animated developer roles" width="900" />
+  </a>
+</p>
+
+🔗 **Live site**: [https://ledangtoanthang.pages.dev](https://ledangtoanthang.pages.dev/)
+
+---
+
+## 📑 Table of Contents
+
+- [Overview](#-overview)
 - [Personal Information](#personal-information)
 - [Tech Stack](#tech-stack)
 - [Features](#features)
@@ -45,9 +60,10 @@ The website is built with HTML, CSS and JavaScript, with GSAP and ScrollTrigger 
 PersonalProject/
 ├── index.html                  # Main portfolio page
 ├── index.template.html         # Source template assembled at build time
-├── package.json                # Dependency-free production build commands
+├── package.json                # Production build and README media commands
 ├── scripts/
-│   └── build-index.js          # Validates and assembles source sections
+│   ├── build-index.js          # Validates and assembles source sections
+│   └── generate-readme-gif.cjs # Generates the animated Home preview
 ├── sections/                   # Reusable page sections and shared footer
 │   ├── home.html
 │   ├── overview.html
@@ -61,13 +77,14 @@ PersonalProject/
 │   ├── wedding-service.html
 │   └── pharmacy-management.html
 ├── assets/
-    ├── CSS/
-    │   └── personalStyle.css   # Theme, layouts and components
-    ├── JS/
-    │   ├── theme.js            # Initial theme preference
-    │   ├── theme-toggle.js     # Shared theme interaction
-    │   ├── portfolio.js        # Navigation and interactions
-    │   └── motion.js           # GSAP scroll animations
-│   └── IMG/                    # Portrait and project images
+│   ├── CSS/
+│   │   └── personalStyle.css   # Theme, layouts and components
+│   ├── JS/
+│   │   ├── theme.js            # Initial theme preference
+│   │   ├── theme-toggle.js     # Shared theme interaction
+│   │   ├── portfolio.js        # Navigation and interactions
+│   │   └── motion.js           # GSAP scroll animations
+│   ├── IMG/                    # Portrait and project images
+│   └── README/                 # Media displayed in repository documentation
 └── dist/                       # Generated production output (not committed)
 ```
