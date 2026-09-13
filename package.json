@@ -5,5 +5,8 @@
   "scripts": {
     "build": "node scripts/build-index.js --production",
     "build:index": "node scripts/build-index.js"
+  },
+  "dependencies": {
+    "flag-icons": "^7.5.0"
   }
 }

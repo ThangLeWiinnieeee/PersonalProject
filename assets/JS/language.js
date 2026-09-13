@@ -42,8 +42,10 @@
   function applyLanguage() {
     document.documentElement.lang = language;
     bindings.forEach(apply => apply());
-    button.textContent = language === "vi" ? "VI" : "EN";
     button.setAttribute("aria-label", language === "vi" ? "Switch to English" : "Chuyển sang tiếng Việt");
+    button.innerHTML = language === "vi"
+      ? '<span class="fi fi-vn" aria-hidden="true"></span><span>VI</span>'
+      : '<span class="fi fi-gb" aria-hidden="true"></span><span>EN</span>';
     button.title = language === "vi" ? "Switch to English" : "Chuyển sang tiếng Việt";
     document.dispatchEvent(new CustomEvent("languagechange"));
     requestAnimationFrame(() => {
