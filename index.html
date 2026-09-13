@@ -5,17 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Le Dang Toan Thang — Full-stack developer focused on Node.js, Python and AI automation. Explore WebTutorCenter and Wedding Service Booking Platform.">
   <meta name="theme-color" content="#edf5fb">
-  <title>Le Dang Toan Thang | Full-stack Developer</title>
-  <link rel="icon" href="./assets/IMG/Logo_UTE.png" type="image/png">
+  <title>Le Dang Toan Thang | Full-stack Developer &amp; AI Engineer</title>
+  <link rel="icon" href="./assets/IMG/lt-logo.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/CSS/personalStyle.css">
   <script src="./assets/JS/theme.js"></script>
+  <script src="./assets/JS/translations-vi.js" defer></script>
+  <script src="./assets/JS/language.js" defer></script>
   <script src="./assets/JS/theme-toggle.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
   <script src="./assets/JS/portfolio.js" defer></script>
+  <script src="./assets/JS/experience.js" defer></script>
   <script src="./assets/JS/motion.js" defer></script>
 </head>
 <body id="top">
@@ -26,6 +29,7 @@
       <button class="menu-toggle" aria-controls="main-nav" aria-expanded="false" hidden>Menu</button>
       <nav id="main-nav" aria-label="Main navigation">
         <a href="#home">Home</a>
+        <a href="#about">About</a>
         <a href="#overview">Overview</a>
         <a href="#projects">Projects</a>
         <a href="#experience">Experience</a>
@@ -42,15 +46,13 @@
   <main id="main">
     <section class="hero shell" id="home">
       <div class="hero-copy">
-        <p class="eyebrow">Full-stack Developer · Python &amp; AI Automation</p>
-        <h1><span class="hero-greeting">Hi, I'm</span><br>Le Dang Toan Thang.<br><span class="role-line" aria-hidden="true"><span id="dynamic-role">Software Engineer</span><span class="typing-cursor"></span></span><span class="sr-only">Software Engineer, Frontend Developer, Backend Developer and Full-stack Developer.</span></h1>
-        <p class="lead">A final-year Software Engineering student focused on JavaScript and Node.js backend development, with hands-on Python and FastAPI experience building an AI chatbot microservice.</p>
+        <p class="eyebrow">Full-stack Developer · AI Engineer</p>
+        <h1><span class="hero-greeting">Hi, I'm</span><br>Le Dang Toan Thang.<br><span class="role-line" aria-hidden="true"><span id="dynamic-role">Full-stack Developer</span><span class="typing-cursor"></span></span><span class="sr-only">Full-stack Developer and AI Engineer.</span></h1>
+        <p class="lead">I'm a final-year Software Engineering student at HCMUTE and a Software Engineer Intern at Rockship. My interests lie in full-stack development and AI engineering, particularly software architecture, backend systems and AI-powered automation.</p>
         <ul class="facts">
           <li>Thu Duc, Ho Chi Minh City</li>
           <li>HCMUTE · Final-year student</li>
         </ul>
-        <p>I work across REST APIs, database design, matching workflows and AI-powered responses, turning requirements into working products.</p>
-        <div class="hero-note"><strong>From API to interface.</strong><span>Full-stack development with a backend focus.</span></div>
         <div class="actions">
           <a class="button primary" href="#projects">View featured projects</a>
           <a class="button" href="#contact">Contact me</a>
@@ -66,7 +68,23 @@
         <div class="portrait-media"><img src="./assets/IMG/Thang'sPicture.jpg" alt="Le Dang Toan Thang" width="1924" height="2560" fetchpriority="high" decoding="async"></div>
       </figure>
     </section>
-    <section class="band" id="overview">
+    <section class="band" id="about">
+  <div class="shell about-layout">
+    <div class="section-head">
+      <p class="eyebrow">About me</p>
+      <h2>Building from interface to intelligence.</h2>
+    </div>
+    <div class="about-copy">
+      <p class="about-lead">I'm a software developer and final-year Software Engineering student at Ho Chi Minh City University of Technology and Education (HCMUTE), passionate about building clean, robust software architectures and AI-integrated solutions.</p>
+      <p>As a Software Engineer Intern at Rockship, I deploy and develop AI software and AI-powered automation tools, gaining hands-on experience turning AI capabilities into practical workflows.</p>
+      <div class="about-focus">
+        <strong>Current focus</strong>
+        <span>Researching and developing AI QS Agent, an AI assistant for construction cost management and quantity surveying.</span>
+      </div>
+    </div>
+  </div>
+</section>
+    <section id="overview">
       <div class="shell">
         <div class="section-head"><h2>A quick overview</h2><p>What I work with, and what I bring to a team.</p></div>
         <div class="overview-grid">
@@ -123,8 +141,10 @@
     <div class="section-head"><h2>Experience</h2><p>Software development and hands-on IT support experience.</p></div>
         <div class="timeline">
           <article class="card">
-            <p class="eyebrow">Aug 2026 – Present · Rockship</p>
+            <p class="eyebrow">Aug 2026 – Present<span data-experience-start="2026-08"></span></p>
         <h3>Software Engineer Intern</h3>
+            <p class="experience-company">Rockship · Full-time</p>
+            <p>Ho Chi Minh City, Vietnam · Hybrid</p>
             <p>Currently responsible for developing cineX at Rockship, a platform for tracking and analyzing Vietnam's cinema box-office data.</p>
             <p>The product brings movie, showtime and box-office information together in a dashboard to support monitoring and analysis.</p>
             <p>Currently researching and developing AI QS Agent, a specialized AI virtual assistant for Quantity Surveying, focused on construction cost management and estimation.</p>
@@ -135,6 +155,10 @@
         <h3>IT Helper</h3>
         <p class="experience-company">IIG Vietnam · Part-time</p>
         <p>Ho Chi Minh City, Vietnam · On-site</p>
+        <ul>
+          <li>Set up computers and install the software needed for IIG Vietnam's English-language examinations.</li>
+          <li>Served as an exam invigilator, supervising candidates and helping maintain an orderly testing environment.</li>
+        </ul>
       </article>
         </div>
       </div>
@@ -144,8 +168,8 @@
       <div class="skills-grid">
         <article class="card"><h3>Languages &amp; frontend</h3><ul><li>JavaScript (primary), TypeScript, Python, SQL, C#</li><li>React 19, Redux Toolkit, Vite</li><li>Tailwind CSS, shadcn/Radix UI</li></ul></article>
         <article class="card"><h3>Backend &amp; security</h3><ul><li>Node.js, Express, FastAPI, Uvicorn</li><li>Pydantic, async httpx, RESTful API, Socket.IO</li><li>JWT, refresh tokens, Google OAuth</li><li>Joi validation, internal service authentication</li></ul></article>
-        <article class="card"><h3>Data &amp; automation</h3><ul><li>MongoDB/Mongoose, PostgreSQL, SQL Server</li><li>Entity Framework Core</li><li>JSON/JSONL processing, text normalization and tokenization</li><li>Matching logic, TTL/LRU cache, scheduled jobs</li></ul></article>
-        <article class="card"><h3>AI &amp; engineering tools</h3><ul><li>Groq SDK/API (Llama 3.3), prompt construction</li><li>Rule-based + LLM fallback, RAG-lite, confidence scoring</li><li>pytest, pytest-asyncio, Ruff</li><li>Git/GitHub, Postman, Docker/Compose, Cloudinary</li></ul></article>
+        <article class="card"><h3>Data &amp; automation</h3><ul><li>MongoDB/Mongoose, PostgreSQL, SQL Server</li><li>Entity Framework Core</li><li>JSON/JSONL processing, text normalization and tokenization</li></ul></article>
+        <article class="card"><h3>AI &amp; engineering tools</h3><ul><li>Rule-based + LLM fallback, RAG-lite, confidence scoring</li><li>pytest, pytest-asyncio, Ruff</li><li>Git/GitHub, Postman, Docker/Compose, Cloudinary</li></ul></article>
       </div>
       <div class="strengths"><h3>Beyond the stack</h3><p>I enjoy automating repetitive work and tracing data across services. I am responsible, honest and detail-oriented, comfortable learning independently and working remotely. I read technical documentation in English and use AI coding assistants to work efficiently.</p></div>
     </section>
@@ -199,7 +223,7 @@
   <footer class="site-footer">
   <div class="shell footer-grid">
     <div class="footer-intro"><a class="brand" href="#home" data-site-link>ThangLe<span>.</span></a><p>Software Engineer building practical web products, backend systems and AI-powered tools.</p></div>
-    <nav class="footer-nav" aria-label="Footer navigation"><a href="#overview" data-site-link>Overview</a><a href="#projects" data-site-link>Projects</a><a href="#experience" data-site-link>Experience</a><a href="#skills" data-site-link>Skills</a><a href="#contact" data-site-link>Contact</a></nav>
+    <nav class="footer-nav" aria-label="Footer navigation"><a href="#about" data-site-link>About</a><a href="#overview" data-site-link>Overview</a><a href="#projects" data-site-link>Projects</a><a href="#experience" data-site-link>Experience</a><a href="#skills" data-site-link>Skills</a><a href="#contact" data-site-link>Contact</a></nav>
     <div class="footer-connect"><p>Connect</p><div class="footer-contact-details"><p><span>Email</span>ledangtoanthang3008@gmail.com</p><p><span>Phone</span>0982340214</p><p><span>Location</span>Thu Duc District, Thu Duc City, Ho Chi Minh City</p></div><div class="footer-social-links"><a href="https://github.com/ThangLeWiinnieeee" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/ledangtoanthang2004/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://www.facebook.com/ledangtoanthang2004" target="_blank" rel="noopener noreferrer">Facebook ↗</a><a href="https://zalo.me/0982340214" target="_blank" rel="noopener noreferrer">Zalo ↗</a></div></div>
   </div>
   <div class="shell footer-bottom"><p>© <span data-current-year>2026</span> Le Dang Toan Thang</p></div>

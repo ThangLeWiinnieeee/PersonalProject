@@ -1,4 +1,14 @@
 const root = document.documentElement;
+const translate = text => window.portfolioI18n?.t(text) ?? text;
+function setLocalizedText(element, text) {
+  element.dataset.message = text;
+  element.textContent = translate(text);
+}
+document.addEventListener("languagechange", () => {
+  document.querySelectorAll("[data-message]").forEach(element => {
+    element.textContent = translate(element.dataset.message);
+  });
+});
 const menuButton = document.querySelector(".menu-toggle");
 const navigation = document.querySelector("#main-nav");
 const floatingTopLink = document.querySelector(".floating-top-link");
@@ -18,8 +28,9 @@ if (floatingTopLink) {
 function setMenu(open) {
   navigation.classList.toggle("open", open);
   menuButton.setAttribute("aria-expanded", String(open));
-  menuButton.textContent = open ? "Close menu" : "Menu";
+  setLocalizedText(menuButton, open ? "Close menu" : "Menu");
 }
+setLocalizedText(menuButton, "Menu");
 menuButton.addEventListener("click", () => setMenu(menuButton.getAttribute("aria-expanded") !== "true"));
 navigation.addEventListener("click", event => {
   if (event.target.closest("a")) setMenu(false);
@@ -33,18 +44,18 @@ document.addEventListener("keydown", event => {
 
 document.querySelectorAll(".contact-copy").forEach(button => button.addEventListener("click", async () => {
   const status = button.parentElement.querySelector(".copy-status");
-  document.querySelectorAll(".copy-status").forEach(element => { element.textContent = ""; });
+  document.querySelectorAll(".copy-status").forEach(element => setLocalizedText(element, ""));
   try {
     await navigator.clipboard.writeText(button.dataset.copy);
-    status.textContent = "Copied";
+    setLocalizedText(status, "Copied");
   } catch {
-    status.textContent = "Copy failed";
+    setLocalizedText(status, "Copy failed");
   }
 }));
 
 const dynamicRole = document.querySelector("#dynamic-role");
 if (dynamicRole) {
-  const roles = ["Software Engineer", "Frontend Developer", "Backend Developer", "Full-stack Developer"];
+  let roles = ["Full-stack Developer", "AI Engineer"].map(translate);
   const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
   let roleIndex = 0;
   let characterIndex = 0;
@@ -88,6 +99,15 @@ if (dynamicRole) {
     else scheduleTyping(250);
   });
   syncTypingPreference();
+  document.addEventListener("languagechange", () => {
+    clearTimeout(typingTimer);
+    roles = ["Full-stack Developer", "AI Engineer"].map(translate);
+    roleIndex = 0;
+    characterIndex = roles[0].length;
+    deleting = true;
+    dynamicRole.textContent = roles[0];
+    if (!reducedMotion.matches) scheduleTyping(1600);
+  });
 }
 
 const contactForm = document.querySelector(".contact-form");
@@ -95,6 +115,7 @@ if (contactForm) {
   const fields = contactForm.querySelector(".contact-form-fields");
   const success = contactForm.querySelector(".contact-success");
   const submitButton = contactForm.querySelector(".contact-submit");
+  setLocalizedText(submitButton, "Send message");
   const submitStatus = contactForm.querySelector(".contact-submit-status");
   const sendAnotherButton = contactForm.querySelector(".send-another");
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
@@ -130,8 +151,8 @@ if (contactForm) {
     if (!contactForm.reportValidity()) return;
 
     submitButton.disabled = true;
-    submitButton.textContent = "Sending...";
-    submitStatus.textContent = "";
+    setLocalizedText(submitButton, "Sending...");
+    setLocalizedText(submitStatus, "");
 
     try {
       const endpoint = contactForm.action.replace("formsubmit.co/", "formsubmit.co/ajax/");
@@ -145,15 +166,15 @@ if (contactForm) {
       contactForm.reset();
       swapContactState(true);
     } catch {
-      submitStatus.textContent = "The message could not be sent. Please try again.";
+      setLocalizedText(submitStatus, "The message could not be sent. Please try again.");
     } finally {
       submitButton.disabled = false;
-      submitButton.textContent = "Send message";
+      setLocalizedText(submitButton, "Send message");
     }
   });
 
   sendAnotherButton.addEventListener("click", () => {
-    submitStatus.textContent = "";
+    setLocalizedText(submitStatus, "");
     swapContactState(false);
     requestAnimationFrame(() => contactForm.querySelector("#contact-email").focus());
   });

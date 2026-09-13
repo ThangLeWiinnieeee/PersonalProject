@@ -42,6 +42,15 @@
     }
 
     const overview = document.querySelector("#overview");
+    const about = document.querySelector("#about");
+    if (about) {
+      const head = about.querySelector(".section-head");
+      const content = about.querySelectorAll(".about-copy > *");
+      observe(about, () => gsap.timeline()
+        .fromTo(head.children, { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: .55, stagger: .1, clearProps: "opacity,visibility,transform" })
+        .fromTo(content, { autoAlpha: 0, y: 22 }, { autoAlpha: 1, y: 0, duration: .65, stagger: .12, ease: "power2.out", clearProps: "opacity,visibility,transform" }, "-=.3"));
+    }
+
     if (overview) {
       const head = overview.querySelector(".section-head");
       const cards = overview.querySelectorAll(".card");
@@ -132,7 +141,7 @@
       triggers.forEach(trigger => trigger.kill());
       activeAnimations.forEach(animation => animation.kill());
       gsap.set(
-        ".hero-copy > *, .portrait, .section-head > *, #overview .card, .project-card, .project-cover, .project-body > *, .timeline, .timeline > .card, #skills .card, .strengths, .contact-layout > div > .eyebrow, .contact-layout > div > h2, .contact-layout > div > p, .contact-card, .contact-social-links, .contact-form, .site-footer, .case-hero > *, .case-study > aside, .case-study article > section",
+        ".hero-copy > *, .portrait, .section-head > *, .about-copy > *, #overview .card, .project-card, .project-cover, .project-body > *, .timeline, .timeline > .card, #skills .card, .strengths, .contact-layout > div > .eyebrow, .contact-layout > div > h2, .contact-layout > div > p, .contact-card, .contact-social-links, .contact-form, .site-footer, .case-hero > *, .case-study > aside, .case-study article > section",
         { clearProps: "opacity,visibility,transform,filter,clipPath,--timeline-progress,--marker-scale" }
       );
     };

@@ -8,8 +8,9 @@ if (themeButton) {
   function updateThemeButton() {
     const dark = themeRoot.dataset.theme === "dark";
     themeButton.setAttribute("aria-pressed", String(dark));
-    themeButton.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
-    themeLabel.textContent = dark ? "Light mode" : "Dark mode";
+    const t = window.portfolioI18n?.t ?? (text => text);
+    themeButton.setAttribute("aria-label", t(dark ? "Switch to light mode" : "Switch to dark mode"));
+    themeLabel.textContent = t(dark ? "Light mode" : "Dark mode");
   }
 
   function applyTheme(theme) {
@@ -22,6 +23,7 @@ if (themeButton) {
 
   themeButton.hidden = false;
   updateThemeButton();
+  document.addEventListener("languagechange", updateThemeButton);
   themeButton.addEventListener("pointerleave", () => themeButton.classList.remove("is-switching"));
   themeButton.addEventListener("click", event => {
     const nextTheme = themeRoot.dataset.theme === "dark" ? "light" : "dark";
