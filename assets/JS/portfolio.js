@@ -1,9 +1,19 @@
 const root = document.documentElement;
 const menuButton = document.querySelector(".menu-toggle");
 const navigation = document.querySelector("#main-nav");
-const themeButton = document.querySelector(".theme-toggle");
+const floatingTopLink = document.querySelector(".floating-top-link");
 root.classList.add("js-enabled");
-[menuButton, themeButton].forEach(button => { button.hidden = false; });
+menuButton.hidden = false;
+
+if (floatingTopLink) {
+  const home = document.querySelector("#home");
+  new IntersectionObserver(([entry]) => {
+    const visible = !entry.isIntersecting && window.scrollY > 0;
+    floatingTopLink.classList.toggle("is-visible", visible);
+    floatingTopLink.setAttribute("aria-hidden", String(!visible));
+    floatingTopLink.tabIndex = visible ? 0 : -1;
+  }, { threshold: 0.05 }).observe(home);
+}
 
 function setMenu(open) {
   navigation.classList.toggle("open", open);
@@ -21,17 +31,6 @@ document.addEventListener("keydown", event => {
   }
 });
 
-function updateThemeButton() {
-  const dark = root.dataset.theme === "dark";
-  themeButton.setAttribute("aria-pressed", String(dark));
-  themeButton.textContent = dark ? "Light mode" : "Dark mode";
-}
-updateThemeButton();
-themeButton.addEventListener("click", () => {
-  root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
-  try { localStorage.setItem("portfolio-theme", root.dataset.theme); } catch {}
-  updateThemeButton();
-});
 document.querySelectorAll(".contact-copy").forEach(button => button.addEventListener("click", async () => {
   const status = button.parentElement.querySelector(".copy-status");
   document.querySelectorAll(".copy-status").forEach(element => { element.textContent = ""; });
@@ -159,9 +158,7 @@ if (contactForm) {
     requestAnimationFrame(() => contactForm.querySelector("#contact-email").focus());
   });
 }
-document.querySelector("#year").textContent = String(new Date().getFullYear());
-
-if ("IntersectionObserver" in window) {
+if (navigation) {
   const links = [...navigation.querySelectorAll("a")];
   const indicator = document.createElement("span");
   indicator.className = "nav-indicator";
@@ -178,15 +175,54 @@ if ("IntersectionObserver" in window) {
   }
 
   setActiveLink(links[0]);
-  const observer = new IntersectionObserver(entries => {
-    const visible = entries.find(entry => entry.isIntersecting);
-    if (!visible) return;
-    const activeLink = links.find(link => link.hash === "#" + visible.target.id);
-    if (activeLink) setActiveLink(activeLink);
-  }, { rootMargin: "-15% 0px -60% 0px", threshold: 0 });
-  links.forEach(link => observer.observe(document.querySelector(link.hash)));
-  window.addEventListener("resize", () => {
-    const activeLink = navigation.querySelector("a[aria-current]") || links[0];
-    setActiveLink(activeLink);
+  let navigationFrame;
+  let lockedLink;
+  let unlockTimer;
+
+  navigation.addEventListener("click", event => {
+    const link = event.target.closest("a");
+    if (!link) return;
+    lockedLink = link;
+    setActiveLink(link);
+    clearTimeout(unlockTimer);
+    unlockTimer = setTimeout(() => {
+      lockedLink = undefined;
+      scheduleNavigationSync();
+    }, 1000);
   });
+
+  function syncActiveLink() {
+    navigationFrame = undefined;
+    if (lockedLink) {
+      setActiveLink(lockedLink);
+      return;
+    }
+    let activeLink = links[0];
+    const pageBottom = window.scrollY + window.innerHeight;
+    const atPageBottom = pageBottom >= document.documentElement.scrollHeight - 4;
+    if (atPageBottom) activeLink = links[links.length - 1];
+    else if (window.scrollY > 32) {
+      const headerHeight = document.querySelector(".site-header").offsetHeight;
+      const probe = headerHeight + (window.innerHeight - headerHeight) * 0.35;
+      links.forEach(link => {
+        const section = document.querySelector(link.hash);
+        if (section && section.getBoundingClientRect().top <= probe) activeLink = link;
+      });
+    }
+    setActiveLink(activeLink);
+  }
+
+  function scheduleNavigationSync() {
+    if (!navigationFrame) navigationFrame = requestAnimationFrame(syncActiveLink);
+  }
+
+  window.addEventListener("scroll", scheduleNavigationSync, { passive: true });
+  window.addEventListener("resize", scheduleNavigationSync);
+  window.addEventListener("pageshow", scheduleNavigationSync);
+  window.addEventListener("scrollend", () => {
+    lockedLink = undefined;
+    clearTimeout(unlockTimer);
+    scheduleNavigationSync();
+  });
+  scheduleNavigationSync();
 }

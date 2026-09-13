@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Le Dang Toan Thang — Full-stack developer focused on Node.js, Python and AI automation. Explore WebTutorCenter and Wedding Service Booking Platform.">
+  <meta name="theme-color" content="#edf5fb">
+  <title>Le Dang Toan Thang | Full-stack Developer</title>
+  <link rel="icon" href="./assets/IMG/Logo_UTE.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/CSS/personalStyle.css">
+  <script src="./assets/JS/theme.js"></script>
+  <script src="./assets/JS/theme-toggle.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+  <script src="./assets/JS/portfolio.js" defer></script>
+  <script src="./assets/JS/motion.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="shell header-row">
+      <a class="brand" href="#home">ThangLe<span>.</span></a>
+      <button class="menu-toggle" aria-controls="main-nav" aria-expanded="false" hidden>Menu</button>
+      <nav id="main-nav" aria-label="Main navigation">
+        <a href="#home">Home</a>
+        <a href="#overview">Overview</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="theme-toggle" aria-pressed="false" hidden>
+        <svg class="theme-icon theme-icon-moon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M20.9 15.1A9 9 0 0 1 8.9 3.1 9 9 0 1 0 20.9 15.1Z"></path></svg>
+        <svg class="theme-icon theme-icon-sun" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <span class="theme-label">Dark mode</span>
+      </button>
+    </div>
+  </header>
+  <main id="main">
+    <div data-include="./sections/home.html"></div>
+    <div data-include="./sections/overview.html"></div>
+    <div data-include="./sections/projects.html"></div>
+    <div data-include="./sections/experience.html"></div>
+    <div data-include="./sections/skills.html"></div>
+    <div data-include="./sections/contact.html"></div>
+  </main>
+  <div data-include="./sections/footer.html"></div>
+  <a class="floating-top-link" href="#top" aria-label="Back to top" aria-hidden="true" tabindex="-1"><span aria-hidden="true">↑</span></a>
+</body>
+</html>

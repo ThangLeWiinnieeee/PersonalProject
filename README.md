@@ -10,7 +10,6 @@ The website is built with HTML, CSS and JavaScript, with GSAP and ScrollTrigger 
 - [Tech Stack](#tech-stack)
 - [Features](#features)
 - [Project Structure](#project-structure)
-- [Run Locally](#run-locally)
 
 ## Personal Information
 
@@ -24,7 +23,7 @@ The website is built with HTML, CSS and JavaScript, with GSAP and ScrollTrigger 
 
 - **Core:** HTML5, CSS3 and JavaScript
 - **Motion:** GSAP and ScrollTrigger
-- **Typography:** Manrope and Space Grotesk
+- **Typography:** Plus Jakarta Sans and Sora
 - **Contact:** FormSubmit
 - **Hosting:** Static-site compatible, including GitHub Pages
 
@@ -45,6 +44,14 @@ The website is built with HTML, CSS and JavaScript, with GSAP and ScrollTrigger 
 ```text
 PersonalProject/
 ├── index.html                  # Main portfolio page
+├── sections/                   # Reusable page sections and shared footer
+│   ├── home.html
+│   ├── overview.html
+│   ├── projects.html
+│   ├── experience.html
+│   ├── skills.html
+│   ├── contact.html
+│   └── footer.html
 ├── projects/                   # Project case-study pages
 │   ├── web-tutor-center.html
 │   ├── wedding-service.html
@@ -54,15 +61,10 @@ PersonalProject/
     │   └── personalStyle.css   # Theme, layouts and components
     ├── JS/
     │   ├── theme.js            # Initial theme preference
+    │   ├── theme-toggle.js     # Shared theme interaction
     │   ├── portfolio.js        # Navigation and interactions
     │   └── motion.js           # GSAP scroll animations
     └── IMG/                    # Portrait and project images
+└── scripts/
+    └── build-index.js          # Builds static index from section files
 ```
-
-## Run locally
-
-```bash
-python -m http.server 8000 --bind 127.0.0.1
-```
-
-Open `http://127.0.0.1:8000` in a browser.

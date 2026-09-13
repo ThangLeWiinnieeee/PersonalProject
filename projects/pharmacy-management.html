@@ -2,13 +2,14 @@
 <html lang="en"><head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Pharmacy Management System case study by Le Dang Toan Thang.">
+  <meta name="theme-color" content="#edf5fb">
   <title>Pharmacy Management System | Le Dang Toan Thang</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/CSS/personalStyle.css"><script src="../assets/JS/theme.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/CSS/personalStyle.css"><script src="../assets/JS/theme.js"></script><script src="../assets/JS/theme-toggle.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script><script src="../assets/JS/motion.js" defer></script>
-</head><body class="project-page">
+</head><body id="top" class="project-page">
   <a class="skip-link" href="#main">Skip to content</a>
-  <nav class="project-nav"><div class="shell project-nav-row"><a class="brand" href="../index.html">ThangLe<span>.</span></a><a class="back-link" href="../index.html#projects">← All projects</a></div></nav>
+  <nav class="project-nav"><div class="shell project-nav-row"><a class="brand" href="../index.html">ThangLe<span>.</span></a><div class="project-nav-actions"><a class="back-link" href="../index.html#projects">← All projects</a><button class="theme-toggle" type="button" aria-pressed="false" hidden><svg class="theme-icon theme-icon-moon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M20.9 15.1A9 9 0 0 1 8.9 3.1 9 9 0 1 0 20.9 15.1Z"></path></svg><svg class="theme-icon theme-icon-sun" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg><span class="theme-label">Dark mode</span></button></div></div></nav>
   <main id="main">
     <header class="case-hero shell"><div><p class="eyebrow">Desktop / Operations</p><h1>Pharmacy Management System</h1><p class="case-lead">A desktop application for managing pharmacy inventory, sales, people and operational reporting.</p></div><dl class="case-meta"><div><dt>Timeline</dt><dd>May 12 – July 5, 2026</dd></div><div><dt>Team</dt><dd>Personal project</dd></div><div><dt>Role</dt><dd>Application Developer</dd></div></dl></header>
     <div class="band"><div class="shell case-study">
@@ -16,4 +17,12 @@
       <article><section><h2>The project</h2><p>This layered C# WinForms application centralizes day-to-day pharmacy operations. It manages medicines, batches, inventory, employees, customers and sales invoices through one desktop interface.</p></section><section><h2>Operational features</h2><ul><li>Medicine and batch records with searchable, filterable views.</li><li>Inventory tracking and sales-invoice management.</li><li>Employee and customer information management.</li><li>Statistics and operational charts built with ScottPlot.</li><li>Role-based access for different application responsibilities.</li></ul></section><section><h2>Data architecture</h2><p>The application uses Entity Framework Core with Npgsql to access PostgreSQL hosted on Supabase. The layered structure separates interface, application logic and persistent data concerns.</p></section><section><h2>Local security</h2><p>The remember-me workflow stores encrypted local tokens using Windows ProtectedData, keeping persisted credentials protected for the active Windows user.</p></section></article>
     </div></div>
   </main>
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div class="footer-intro"><a class="brand" href="../index.html#home">ThangLe<span>.</span></a><p>Software Engineer building practical web products, backend systems and AI-powered tools.</p></div>
+      <nav class="footer-nav" aria-label="Footer navigation"><a href="../index.html#overview">Overview</a><a href="../index.html#projects">Projects</a><a href="../index.html#experience">Experience</a><a href="../index.html#skills">Skills</a><a href="../index.html#contact">Contact</a></nav>
+      <div class="footer-connect"><p>Connect</p><div class="footer-contact-details"><p><span>Email</span>ledangtoanthang3008@gmail.com</p><p><span>Phone</span>0982340214</p><p><span>Location</span>Thu Duc District, Thu Duc City, Ho Chi Minh City</p></div><div class="footer-social-links"><a href="https://github.com/ThangLeWiinnieeee" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/ledangtoanthang2004/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a href="https://www.facebook.com/ledangtoanthang2004" target="_blank" rel="noopener noreferrer">Facebook ↗</a><a href="https://zalo.me/0982340214" target="_blank" rel="noopener noreferrer">Zalo ↗</a></div></div>
+    </div>
+    <div class="shell footer-bottom"><p>© <span data-current-year>2026</span> Le Dang Toan Thang</p></div>
+  </footer>
 </body></html>

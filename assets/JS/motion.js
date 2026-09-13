@@ -1,77 +1,140 @@
-// Content is visible by default when the animation CDN is unavailable.
+// Content remains visible when GSAP or ScrollTrigger is unavailable.
 (() => {
   const { gsap, ScrollTrigger } = window;
   if (!gsap || !ScrollTrigger) return;
+
   gsap.registerPlugin(ScrollTrigger);
   const media = gsap.matchMedia();
-  media.add({
-    motion: "(prefers-reduced-motion: no-preference)",
-    mobile: "(max-width: 640px)"
-  }, context => {
-    if (!context.conditions.motion) return;
-    const targets = gsap.utils.toArray(
-      ".hero-copy > *, .portrait, #overview .section-head, #overview .card, " +
-      "#projects .section-head, .project-card, #experience .section-head, " +
-      "#experience .timeline > .card, #skills .section-head, #skills .card, " +
-      ".strengths, .contact-layout > div > p, .contact-layout > div > h2, .contact-card, .contact-form, " +
-      ".case-hero > *, .case-study > aside, .case-study article > section"
-    );
+
+  media.add("(prefers-reduced-motion: no-preference)", () => {
     const triggers = [];
-    targets.forEach(element => {
-      const siblings = [...element.parentElement.children];
-      let delay = 0;
-      if (element.parentElement.matches(".hero-copy")) delay = Math.min(siblings.indexOf(element) * 0.1, 0.5);
-      else if (element.matches(".portrait")) delay = 0.2;
-      else if (element.matches(".contact-layout > div > p, .contact-layout > div > h2"))
-        delay = siblings.indexOf(element) * 0.1;
-      else if (element.parentElement.matches(".case-hero")) delay = siblings.indexOf(element) * 0.14;
-      else if (!context.conditions.mobile && element.parentElement.matches(".overview-grid, .projects-grid, .skills-grid"))
-        delay = (siblings.indexOf(element) % 2) * 0.15;
-      let animated = false;
-      const reveal = () => {
-        if (element.matches(".contact-form") && animated) return;
-        animated = true;
-        gsap.killTweensOf(element);
-        gsap.fromTo(element, {
-          opacity: 0,
-          y: context.conditions.mobile ? 20 : 40
-        }, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          delay,
-          ease: "power2.out",
-          clearProps: "opacity,transform"
-        });
-      };
+    const activeAnimations = new Map();
+
+    function replay(key, build) {
+      activeAnimations.get(key)?.kill();
+      activeAnimations.set(key, build());
+    }
+
+    function observe(trigger, build, start = "top 84%") {
+      if (!trigger) return;
       triggers.push(ScrollTrigger.create({
-        trigger: element,
-        start: "top bottom",
+        trigger,
+        start,
         end: "bottom top",
-        onEnter: reveal,
-        onEnterBack: reveal,
+        onEnter: () => replay(trigger, build),
+        onEnterBack: () => replay(trigger, build),
         invalidateOnRefresh: true
       }));
-    });
+    }
+
+    const home = document.querySelector("#home");
+    if (home) {
+      const copy = gsap.utils.toArray(".hero-copy > *");
+      const portrait = document.querySelector(".portrait");
+      observe(home, () => gsap.timeline()
+        .fromTo(copy,
+          { autoAlpha: 0, x: -26, filter: "blur(8px)" },
+          { autoAlpha: 1, x: 0, filter: "blur(0px)", duration: .7, stagger: .07, ease: "power2.out", clearProps: "opacity,visibility,transform,filter" })
+        .fromTo(portrait,
+          { autoAlpha: 0, scale: .9, clipPath: "circle(0% at 50% 50%)" },
+          { autoAlpha: 1, scale: 1, clipPath: "circle(75% at 50% 50%)", duration: .9, ease: "power3.out", clearProps: "opacity,visibility,transform,clipPath" },
+          .18), "top bottom");
+    }
+
+    const overview = document.querySelector("#overview");
+    if (overview) {
+      const head = overview.querySelector(".section-head");
+      const cards = overview.querySelectorAll(".card");
+      observe(overview, () => gsap.timeline()
+        .fromTo(head.children, { autoAlpha: 0, y: 12, filter: "blur(8px)" }, { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: .5, stagger: .1, clearProps: "opacity,visibility,transform,filter" })
+        .fromTo(cards, { autoAlpha: 0, scale: .94, filter: "blur(8px)" }, { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: .65, stagger: .1, ease: "power2.out", clearProps: "opacity,visibility,transform,filter" }, "-=.25"));
+    }
+
+    const projects = document.querySelector("#projects");
+    if (projects) {
+      const projectHead = projects.querySelector(".section-head");
+      observe(projectHead, () => gsap.fromTo(projectHead.children,
+        { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: .5, stagger: .1, clearProps: "opacity,visibility,transform" }));
+      projects.querySelectorAll(".project-card").forEach((card, index) => {
+        observe(card, () => gsap.fromTo(card,
+          { autoAlpha: 0, x: index % 2 ? 52 : -52, scale: .985 },
+          { autoAlpha: 1, x: 0, scale: 1, duration: .75, ease: "power3.out", clearProps: "opacity,visibility,transform" }
+        ));
+      });
+    }
+
+    const experience = document.querySelector("#experience");
+    if (experience) {
+      const head = experience.querySelector(".section-head");
+      const timeline = experience.querySelector(".timeline");
+      const cards = experience.querySelectorAll(".timeline > .card");
+      observe(experience, () => {
+        gsap.set(timeline, { "--timeline-progress": 0 });
+        gsap.set(cards, { "--marker-scale": 0 });
+        return gsap.timeline()
+          .fromTo(head.children, { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: .5, stagger: .1, clearProps: "opacity,visibility,transform" })
+          .to(timeline, { "--timeline-progress": 1, duration: 1.15, ease: "power2.inOut" }, "-=.2")
+          .fromTo(cards,
+            { autoAlpha: 0, x: 24 },
+            { autoAlpha: 1, x: 0, "--marker-scale": 1, duration: .6, stagger: .28, ease: "power2.out", clearProps: "opacity,visibility,transform" },
+            "-=.9");
+      });
+    }
+
+    const skills = document.querySelector("#skills");
+    if (skills) {
+      const head = skills.querySelector(".section-head");
+      const cards = skills.querySelectorAll(".skills-grid .card");
+      const strengths = skills.querySelector(".strengths");
+      observe(skills, () => gsap.timeline()
+        .fromTo(head.children, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: .5, stagger: .1, clearProps: "opacity,visibility,transform" })
+        .fromTo(cards,
+          { autoAlpha: 0, x: index => index % 2 ? 34 : -34 },
+          { autoAlpha: 1, x: 0, duration: .65, stagger: .12, ease: "power2.out", clearProps: "opacity,visibility,transform" },
+          "-=.2")
+        .fromTo(strengths, { autoAlpha: 0 }, { autoAlpha: 1, duration: .5, clearProps: "opacity,visibility" }, "-=.2"));
+    }
+
+    const contact = document.querySelector("#contact");
+    if (contact) {
+      const introduction = contact.querySelector(".contact-layout > div");
+      const introductionItems = introduction.querySelectorAll(":scope > .eyebrow, :scope > h2, :scope > p:not(.eyebrow)");
+      const contactCard = introduction.querySelector(".contact-card");
+      const socialLinks = introduction.querySelector(".contact-social-links");
+      const form = contact.querySelector(".contact-form");
+      observe(contact, () => gsap.timeline()
+        .fromTo(introductionItems, { autoAlpha: 0, x: -24 }, { autoAlpha: 1, x: 0, duration: .5, stagger: .09, ease: "power2.out", clearProps: "opacity,visibility,transform" })
+        .fromTo(contactCard, { autoAlpha: 0, x: -32, scale: .98 }, { autoAlpha: 1, x: 0, scale: 1, duration: .6, ease: "power2.out", clearProps: "opacity,visibility,transform" }, "-=.2")
+        .fromTo(socialLinks, { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: .5, ease: "power2.out", clearProps: "opacity,visibility,transform" }, "-=.35")
+        .fromTo(form, { autoAlpha: 0, x: 36, scale: .98 }, { autoAlpha: 1, x: 0, scale: 1, duration: .7, ease: "power2.out", clearProps: "opacity,visibility,transform" }, "-=.8"));
+    }
+
+    const footer = document.querySelector(".site-footer");
+    observe(footer, () => gsap.fromTo(footer, { autoAlpha: 0 }, { autoAlpha: 1, duration: .6, clearProps: "opacity,visibility" }), "top 95%");
+
+    const caseHero = document.querySelector(".case-hero");
+    if (caseHero) {
+      observe(caseHero, () => gsap.fromTo(caseHero.children,
+        { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: .7, stagger: .12, ease: "power2.out", clearProps: "opacity,visibility,transform" }), "top bottom");
+      document.querySelectorAll(".case-study > aside, .case-study article > section").forEach(element => {
+        observe(element, () => gsap.fromTo(element,
+          { autoAlpha: 0, y: 28 }, { autoAlpha: 1, y: 0, duration: .65, ease: "power2.out", clearProps: "opacity,visibility,transform" }));
+      });
+    }
+
+    const refresh = () => ScrollTrigger.refresh();
+    document.querySelectorAll("details").forEach(element => element.addEventListener("toggle", refresh));
+    if (document.fonts) document.fonts.ready.then(refresh);
+    window.addEventListener("load", refresh, { once: true });
+    window.addEventListener("pageshow", refresh);
+
     return () => {
       triggers.forEach(trigger => trigger.kill());
-      targets.forEach(element => {
-        gsap.killTweensOf(element);
-        gsap.set(element, { clearProps: "opacity,transform" });
-      });
+      activeAnimations.forEach(animation => animation.kill());
+      gsap.set(
+        ".hero-copy > *, .portrait, .section-head > *, #overview .card, .project-card, .project-cover, .project-body > *, .timeline, .timeline > .card, #skills .card, .strengths, .contact-layout > div > .eyebrow, .contact-layout > div > h2, .contact-layout > div > p, .contact-card, .contact-social-links, .contact-form, .site-footer, .case-hero > *, .case-study > aside, .case-study article > section",
+        { clearProps: "opacity,visibility,transform,filter,clipPath,--timeline-progress,--marker-scale" }
+      );
     };
   });
-  const refresh = () => ScrollTrigger.refresh();
-  document.querySelectorAll("details").forEach(element => element.addEventListener("toggle", refresh));
-  if (document.fonts) document.fonts.ready.then(refresh);
-  window.addEventListener("load", refresh, { once: true });
-  window.addEventListener("pageshow", refresh);
-  if ("ResizeObserver" in window) {
-    let frame;
-    const observer = new ResizeObserver(() => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(refresh);
-    });
-    observer.observe(document.querySelector("main"));
-  }
 })();
