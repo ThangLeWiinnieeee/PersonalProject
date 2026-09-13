@@ -1,0 +1,9 @@
+{
+  "name": "le-dang-toan-thang-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-index.js --production",
+    "build:index": "node scripts/build-index.js"
+  }
+}

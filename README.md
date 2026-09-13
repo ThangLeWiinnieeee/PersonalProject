@@ -25,7 +25,7 @@ The website is built with HTML, CSS and JavaScript, with GSAP and ScrollTrigger 
 - **Motion:** GSAP and ScrollTrigger
 - **Typography:** Plus Jakarta Sans and Sora
 - **Contact:** FormSubmit
-- **Hosting:** Static-site compatible, including GitHub Pages
+- **Hosting:** Static-site compatible; production output is generated in `dist/`
 
 ## Features
 
@@ -44,6 +44,10 @@ The website is built with HTML, CSS and JavaScript, with GSAP and ScrollTrigger 
 ```text
 PersonalProject/
 ├── index.html                  # Main portfolio page
+├── index.template.html         # Source template assembled at build time
+├── package.json                # Dependency-free production build commands
+├── scripts/
+│   └── build-index.js          # Validates and assembles source sections
 ├── sections/                   # Reusable page sections and shared footer
 │   ├── home.html
 │   ├── overview.html
@@ -56,7 +60,7 @@ PersonalProject/
 │   ├── web-tutor-center.html
 │   ├── wedding-service.html
 │   └── pharmacy-management.html
-└── assets/
+├── assets/
     ├── CSS/
     │   └── personalStyle.css   # Theme, layouts and components
     ├── JS/
@@ -64,7 +68,6 @@ PersonalProject/
     │   ├── theme-toggle.js     # Shared theme interaction
     │   ├── portfolio.js        # Navigation and interactions
     │   └── motion.js           # GSAP scroll animations
-    └── IMG/                    # Portrait and project images
-└── scripts/
-    └── build-index.js          # Builds static index from section files
+│   └── IMG/                    # Portrait and project images
+└── dist/                       # Generated production output (not committed)
 ```
