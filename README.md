@@ -1,47 +1,68 @@
 # Le Dang Toan Thang — Portfolio
 
-Static HTML/CSS/JavaScript portfolio inspired by the layout at http://hungle.me/MyPortfolio/.
-The implementation uses original local styles and the owner's CV content.
+Personal portfolio website introducing my background, technical skills, internship experience and featured software projects. Each featured project includes a dedicated case-study page with its main technologies, responsibilities and relevant links.
 
-## Structure
+The website is built with HTML, CSS and JavaScript, with GSAP and ScrollTrigger used for motion. It supports responsive layouts, light and dark themes, accessible reduced-motion behavior and a contact form.
 
-- `index.html`: profile, three featured projects, internship experience, skills and contact.
-- `projects/`: standalone case-study pages for each featured project.
-- `assets/CSS/personalStyle.css`: theme tokens, layout, components and responsive rules.
-- `assets/JS/theme.js`: saved/system theme applied before rendering.
-- `assets/JS/portfolio.js`: mobile navigation, theme switch, copy email and active section.
-- `assets/JS/motion.js`: GSAP + ScrollTrigger reveals and layout refresh handling.
-- `assets/IMG/`: existing portrait and university logo.
+## Table of Contents
 
-## Preview
+- [Personal Information](#personal-information)
+- [Tech Stack](#tech-stack)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Run Locally](#run-locally)
 
-Run `python -m http.server 8000 --bind 127.0.0.1` from this directory, then open
-http://127.0.0.1:8000. No build or package installation is required.
+## Personal Information
 
-Project contributions, dates and technical skills come from the supplied CV.
-Featured project cards show only timeline, team, core stack and external links.
-Clicking a card opens its detailed case-study page.
-Internship experience contains Rockship; education appears in the overview.
-Native details panels work without JavaScript.
-Social buttons in the hero open GitHub, LinkedIn, Facebook and Zalo.
-The contact form posts email and message fields to FormSubmit for forwarding to
-`ledangtoanthang3008@gmail.com`. Browser validation and the default CAPTCHA remain enabled.
-The first submission triggers an activation email: confirm it in the recipient's inbox
-(check Spam too) before using mail delivery. Serve the site over HTTP/HTTPS, submit once,
-activate the email address, then send another message and confirm receipt.
-Submissions continue on FormSubmit's verification/confirmation page.
-Delivery has not been tested from this workspace; no test email was sent.
-Clicking the email address or phone number copies its value to the clipboard.
-Clipboard access requires HTTPS or localhost; failures show a manual-copy message.
-Google Fonts is optional; system font fallbacks are defined.
+- **Name:** Le Dang Toan Thang
+- **Role:** Software Engineer · Full-stack Developer
+- **Focus:** Backend development, Python automation and AI-powered applications
+- **Location:** Thu Duc, Ho Chi Minh City, Vietnam
+- **Education:** Software Engineering at Ho Chi Minh City University of Technology and Education (HCMUTE)
 
-## Motion
+## Tech Stack
 
-GSAP + ScrollTrigger 3.12.5 load from jsDelivr. Native scrolling is preserved.
-Each element animates on enter and enter-back without storing a hidden off-screen state.
-Hero content and cards animate independently with staggered delays.
-The contact form reveals only once. Keyboard focus makes its target visible immediately.
-Reduced-motion preferences disable visual animation immediately, including live changes.
-Content and the contact form remain usable if the animation CDN is unavailable.
-Check desktop/mobile scrolling, expanded project details, keyboard navigation and
-the operating system's reduced-motion setting when previewing.
+- **Core:** HTML5, CSS3 and JavaScript
+- **Motion:** GSAP and ScrollTrigger
+- **Typography:** Manrope and Space Grotesk
+- **Contact:** FormSubmit
+- **Hosting:** Static-site compatible, including GitHub Pages
+
+## Features
+
+- Responsive single-page portfolio for desktop, tablet and mobile
+- Light and dark themes with saved user preference
+- Animated role typing and scroll-based content reveals
+- Sliding navigation indicator synchronized with the visible section
+- Adaptive overview and featured-project grids
+- Dedicated case-study pages for featured projects
+- Direct social links and click-to-copy contact information
+- AJAX contact form with animated success and error states
+- Keyboard navigation and reduced-motion support
+
+## Project Structure
+
+```text
+PersonalProject/
+├── index.html                  # Main portfolio page
+├── projects/                   # Project case-study pages
+│   ├── web-tutor-center.html
+│   ├── wedding-service.html
+│   └── pharmacy-management.html
+└── assets/
+    ├── CSS/
+    │   └── personalStyle.css   # Theme, layouts and components
+    ├── JS/
+    │   ├── theme.js            # Initial theme preference
+    │   ├── portfolio.js        # Navigation and interactions
+    │   └── motion.js           # GSAP scroll animations
+    └── IMG/                    # Portrait and project images
+```
+
+## Run locally
+
+```bash
+python -m http.server 8000 --bind 127.0.0.1
+```
+
+Open `http://127.0.0.1:8000` in a browser.

@@ -13,7 +13,8 @@
       ".hero-copy > *, .portrait, #overview .section-head, #overview .card, " +
       "#projects .section-head, .project-card, #experience .section-head, " +
       "#experience .timeline > .card, #skills .section-head, #skills .card, " +
-      ".strengths, .contact-layout > div > p, .contact-layout > div > h2, .contact-card, .contact-form"
+      ".strengths, .contact-layout > div > p, .contact-layout > div > h2, .contact-card, .contact-form, " +
+      ".case-hero > *, .case-study > aside, .case-study article > section"
     );
     const triggers = [];
     targets.forEach(element => {
@@ -23,6 +24,7 @@
       else if (element.matches(".portrait")) delay = 0.2;
       else if (element.matches(".contact-layout > div > p, .contact-layout > div > h2"))
         delay = siblings.indexOf(element) * 0.1;
+      else if (element.parentElement.matches(".case-hero")) delay = siblings.indexOf(element) * 0.14;
       else if (!context.conditions.mobile && element.parentElement.matches(".overview-grid, .projects-grid, .skills-grid"))
         delay = (siblings.indexOf(element) % 2) * 0.15;
       let animated = false;
